@@ -284,4 +284,12 @@ button.accent {
     .chat-header h2 {
         font-size: 1.1em;
     }
+
+    #chat-page .chat-image {
+            max-width: 100%;
+            max-height: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
 }

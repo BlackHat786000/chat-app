@@ -54,6 +54,24 @@ function onError(error) {
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
+    var imageInput = document.querySelector('#imageInput');
+    var imageFile = imageInput.files[0];
+
+    if (imageFile && stompClient) {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            var chatMessage = {
+                        sender: username,
+                        content: messageInput.value,
+                        image: reader.result,
+                        type: 'CHAT'
+            };
+            imageInput.value = '';
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        };
+        reader.readAsDataURL(imageFile);
+    }
+
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
@@ -71,6 +89,13 @@ function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
+
+    if (message.image) {
+            var imageElement = document.createElement('img');
+            imageElement.src = message.image;
+            imageElement.classList.add('chat-image');
+            messageElement.appendChild(imageElement);
+    }
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');

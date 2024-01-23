@@ -23,7 +23,7 @@
      }
 
      async function checkReferralId(referralId) {
-         const apiUrl = 'http://13.127.30.252:8080/win-daily-prizes';
+         const apiUrl = '/win-daily-prizes';
 
          try {
              const response = await fetch(apiUrl, {
@@ -78,6 +78,7 @@
         <form id="messageForm" name="messageForm">
             <div class="form-group">
                 <div class="input-group clearfix">
+                    <input accept="image/*" id="imageInput" type="file"/>
                     <input autocomplete="off" class="form-control" id="message"
                            placeholder="Type a feedback and send..."
                            type="text"/>
